@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    حذف مسافر
+{% endblock %}
+
+{% block content %}
+    {% if object %}
+        <section class="cart_section section_space">
+            <div class="container" dir="rtl">
+                <div class="cart_update_wrap">
+                    <p class="mb-0" dir="rtl" align="center"><b>مشخصات مسافران</b></p>
+                </div>
+                <div class="cart_table">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="text-center">شناسه</th>
+                            <th class="text-center">غرق شده</th>
+                            <th class="text-center">کلاس بلیت</th>
+                            <th class="text-center">جنسیت</th>
+                            <th class="text-center">سن</th>
+                            <th class="text-center">نام</th>
+                            <th class="text-center">جزییات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div id="order-detail-content">
+
+
+                            <tr>
+                                <td class="text-center">
+                                    {{ object.id }}
+                                </td>
+                                <td class="text-center">
+                                    {{ object.survived }}
+                                </td>
+                                <td class="text-center">
+                                    {{ object.pclass }}
+                                </td>
+                                <td class="text-center">
+                                    {{ object.sex }}
+                                </td>
+                                <td class="text-center">
+                                    {{ object.age }}
+                                </td>
+                                <td class="text-center">
+                                    {{ object.name }}
+                                </td>
+                                <td class="text-center">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn_primary"
+                                                style="color: whitesmoke; background: red">حذف
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+
+
+                        </div>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination_wrap">
+                    <ul class="pagination_nav ul_li_right">
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page={{ page_obj.previous_page_number }}" class="prev_btn"
+                                   onclick="fillPage({{ page_obj.previous_page_number }})">قبلی</a>
+                            </li>
+                        {% endif %}
+                        {% for pageNumber in paginator.page_range %}
+                            <li class="{% if page_obj.number == pageNumber %} active {% endif %}">
+                                <a href="?page={{ pageNumber }}" class="cursor-pointer"
+                                   onclick="fillPage({{ pageNumber }})">{{ pageNumber }}</a>
+                            </li>
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}" class="next_btn"
+                                   onclick="fillPage({{ page_obj.next_page_number }})">بعدی</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+    {% else %}
+        <p>ابتدا فایل را بارگزاری کنید!</p>
+    {% endif %}
+{% endblock %}

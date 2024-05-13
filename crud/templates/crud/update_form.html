@@ -1,0 +1,107 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    اصلاح مسافر
+{% endblock %}
+
+{% block content %}
+    {% if no_passengers_message %}
+        <p>{{ no_passengers_message }}</p>
+        {% else %}
+        <section class="checkout_section section_space" dir="rtl">
+        <div class="container">
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="checkout_widget bg-light">
+                    <h3 class="checkout_widget_title">فرم اصلاح مسافر</h3>
+
+
+                    <div class="row">
+                        <div class="col col-md-6 col-sm-6">
+                            <div class="form_item">
+                                <h4 class="input_title">نام *</h4>
+                                {{ form.name }}
+                                {{ form.name.errors }}
+                            </div>
+                        </div>
+                        <div class="col col-md-6 col-sm-6">
+                            <div class="form_item">
+                                <h4 class="input_title">جنسیت</h4>
+                                {{ form.sex }}
+                                {{ form.sex.errors }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form_item">
+                        <h4 class="input_title">کلاس بلیت</h4>
+                        {{ form.pclass }}
+                        {{ form.pclass.errors }}
+                    </div>
+
+                    <div class="form_item">
+                        <h4 class="input_title">سن</h4>
+                        {{ form.age }}
+                        {{ form.age.errors }}
+                    </div>
+
+                    <div class="row">
+                        <div class="col col-md-6 col-sm-6">
+                            <div class="form_item">
+                                <h4 class="input_title">تعداد همسر و خواهر و برادر</h4>
+                                {{ form.sibsp }}
+                                {{ form.sibsp.errors }}
+                            </div>
+                        </div>
+                        <div class="col col-md-6 col-sm-6">
+                            <div class="form_item">
+                                <h4 class="input_title">تعداد فرزندان و پدر و مادر</h4>
+                                {{ form.parch }}
+                                {{ form.parch.errors }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form_item mb-5">
+                        <h4 class="input_title">کد بلیت</h4>
+                        {{ form.ticket }}
+                        {{ form.ticket.errors }}
+                    </div>
+
+                    <div class="form_item mb-5">
+                        <h4 class="input_title">کرایه(پوند)</h4>
+                        {{ form.fare }}
+                        {{ form.fare.errors }}
+                    </div>
+
+                    <div class="form_item mb-5">
+                        <h4 class="input_title">شماره کابین</h4>
+                        {{ form.cabin }}
+                        {{ form.cabin.errors }}
+                    </div>
+
+                    <div class="form_item mb-5">
+                        <h4 class="input_title">بندر سوار شده</h4>
+                        {{ form.embarked }}
+                        {{ form.embarked.errors }}
+                    </div>
+
+                    <div class="form_item mb-5">
+                        <h4 class="input_title">نجات یافته</h4>
+                        {{ form.survived }}
+                        {{ form.survived.errors }}
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn_primary"
+                        style="color: whitesmoke; background: green">اصلاح
+                </button>
+
+
+            </form>
+        </div>
+    </section>
+    {% endif %}
+
+{% endblock %}

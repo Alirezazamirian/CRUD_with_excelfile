@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+تایتانیک
+{% endblock %}
+
+
+{% block content %}
+    <main>
+        <section class="contact_section section_space">
+            <div class="container">
+                <div class="row">
+                    <div class="col col-lg-12">
+                        <div class="contact_info_wrap">
+                            <h3 class="contact_title">بارگزاری فایل اکسل</h3>
+                            <form action="{% url 'excel_upload' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form_item row ">
+                                    {{ form.excel }}
+                                </div>
+                                <button type="submit" class="btn btn_primary">تایید</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+{% endblock %}

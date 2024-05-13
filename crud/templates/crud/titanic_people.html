@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    کاربران تایتانیک
+{% endblock %}
+
+{% block content %}
+    {% if people %}
+        <section class="cart_section section_space">
+            <div class="container" dir="rtl">
+                <div class="cart_update_wrap">
+                    <p class="mb-0" dir="rtl" align="center"><b>مشخصات مسافران</b></p>
+                    <a href="{% url 'post_create' %}">
+                        <button type="submit" class="btn btn_primary"
+                                style="color: whitesmoke; background: green; border-radius: 30px;">اضافه کردن مسافر
+                        </button>
+                    </a>
+                </div>
+                <div class="cart_table">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="text-center">شناسه</th>
+                            <th class="text-center">غرق شده</th>
+                            <th class="text-center">کلاس بلیت</th>
+                            <th class="text-center">جنسیت</th>
+                            <th class="text-center">سن</th>
+                            <th class="text-center">نام</th>
+                            <th class="text-center">جزییات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <div id="order-detail-content">
+
+                            {% for person in people %}
+                                <tr>
+                                    <td class="text-center">
+                                        {{ person.id }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ person.survived }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ person.pclass }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ person.sex }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ person.age }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ person.name }}
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{% url 'post_delete' pk=person.id %}">
+                                            <button type="submit" class="btn btn_primary"
+                                                    style="color: whitesmoke; background: red">حذف
+                                            </button>
+                                        </a>
+                                        <a href="{% url 'post_update' pk=person.id %}">
+                                            <button type="submit" class="btn btn_primary"
+                                                    style="background: yellow; color: black">اصلاح
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </div>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination_wrap">
+                    <ul class="pagination_nav ul_li_right">
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page={{ page_obj.previous_page_number }}" class="prev_btn"
+                                   onclick="fillPage({{ page_obj.previous_page_number }})">قبلی</a>
+                            </li>
+                        {% endif %}
+                        {% for pageNumber in paginator.page_range %}
+                            <li class="{% if page_obj.number == pageNumber %} active {% endif %}">
+                                <a href="?page={{ pageNumber }}" class="cursor-pointer"
+                                   onclick="fillPage({{ pageNumber }})">{{ pageNumber }}</a>
+                            </li>
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}" class="next_btn"
+                                   onclick="fillPage({{ page_obj.next_page_number }})">بعدی</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+    {% else %}
+        <p>ابتدا فایل را بارگزاری کنید!</p>
+    {% endif %}
+{% endblock %}
